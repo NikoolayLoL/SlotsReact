@@ -1,0 +1,252 @@
+/* Import Google's Noto Color Emoji font */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap');
+
+/* Apply the font to all emojis */
+.symbol {
+  font-family: "Noto Color Emoji", sans-serif; /* Ensures consistent emoji rendering */
+  font-size: min(10vw, 60px); /* Adjusts size dynamically */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 33%;
+  text-align: center;
+  line-height: 1;
+  white-space: nowrap;
+  transition: transform 0.2s ease-in-out;
+}
+
+
+/* Main slot machine container */
+.slot-machine-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60vw;
+  max-width: 600px;
+  min-width: 300px;
+  margin-top: 120px; /* Keeps it positioned properly under win messages */
+}
+
+/* Slot machine body */
+.slot-machine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  height: calc(60vh - 8vw); /* 📌 Increased height on PC */
+  background-color: #222;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  transition: height 0.3s ease-in-out;
+}
+
+/* Slot container */
+.slot-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px; /* 📌 Increased spacing for better emoji visibility */
+  overflow: hidden;
+  width: 100%;
+  height: 70%; /* 📌 Increased height for better visuals */
+  background: #444;
+  border-radius: 10px;
+  position: relative;
+}
+
+/* Each slot column (reel) */
+.reel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 16%;
+  height: 100%;
+  background: #333;
+  border-radius: 5px;
+  position: relative;
+}
+
+/* Symbols in each reel */
+.symbol {
+  font-size: min(10vw, 60px); /* 📌 Increased emoji size for better visibility */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 33%;
+  text-align: center;
+  line-height: 1;
+  white-space: nowrap;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Highlight winning symbols */
+.symbol.win {
+  background: gold;
+  border-radius: 5px;
+  font-weight: bold;
+  box-shadow: 0px 0px 5px rgba(255, 215, 0, 0.8);
+  animation: pulse 0.5s infinite alternate;
+}
+
+/* Flashing effect for winning symbols */
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    background-color: gold;
+  }
+  to {
+    transform: scale(1.1);
+    background-color: yellow;
+  }
+}
+
+/* Spin button */
+.spin-button {
+  padding: 14px 28px;
+  font-size: 1.8rem;
+  background: gold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.1s;
+  margin-top: 10px; /* 📌 Prevents extra space below button */
+}
+
+.spin-button:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+
+.spin-button:active {
+  transform: scale(0.95);
+}
+
+/* Debug Bar (Fixed at the Top) */
+.debug-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #ffcc00;
+  text-align: center;
+  font-size: 1rem;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid #ffcc00;
+  z-index: 1000;
+}
+
+/* Win Container (Now Uses Flexbox for a Clean List Layout) */
+.win-container {
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: gold;
+  display: flex;
+  flex-wrap: wrap; /* 📌 Allows messages to fit in one row, wrap if needed */
+  justify-content: center;
+  align-items: center;
+  max-width: 90vw; /* Prevents overflow */
+  gap: 10px; /* 📌 Adds spacing between messages */
+  z-index: 999;
+  padding: 5px;
+}
+
+/* Individual Win Message (Now Uses a More Compact Design) */
+.win-message {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 6px 12px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px rgba(255, 215, 0, 0.6);
+  font-size: 1.2rem;
+  white-space: nowrap; /* 📌 Prevents weird wrapping within a single message */
+}
+
+/* No Wins Message (Faded) */
+.win-message.no-win {
+  color: rgba(255, 215, 0, 0.5);
+}
+
+/* Debug Toggle Menu (Fixed at the Bottom) */
+.debug-toggle {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  text-align: center;
+  padding: 10px 0;
+  border-top: 2px solid #ffcc00;
+  z-index: 1000;
+}
+
+.toggle-label {
+  font-size: 1rem;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggle-label input {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+/* 📌 Mobile Optimization */
+@media (max-width: 768px) {
+  .slot-machine-container {
+    width: 80vw;
+    min-width: 280px;
+    margin-top: 100px;
+  }
+
+  .slot-machine {
+    height: calc(45vh - 8vw);
+  }
+
+  .slot-container {
+    height: 60%;
+  }
+
+  .symbol {
+    font-size: min(12vw, 50px);
+  }
+
+  .debug-bar {
+    font-size: 0.9rem;
+    height: 25px;
+  }
+
+  .spin-button {
+    font-size: 1.5rem;
+    padding: 12px 24px;
+  }
+
+  .win-container {
+    top: 45px;
+    font-size: 1.2rem;
+    max-width: 95vw;
+    gap: 6px; /* Adjusted for smaller screens */
+  }
+
+  .win-message {
+    font-size: 1rem;
+    padding: 4px 10px;
+  }
+}
